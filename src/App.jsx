@@ -162,7 +162,7 @@ function Login({ onLogin }) {
         <div style={{ marginBottom: 24 }}>
           <div style={{ fontSize: 12, color: C.textSecondary, marginBottom: 8 }}>Contraseña</div>
           <input style={s.input} type={verPass ? "text" : "password"} placeholder="········" value={pass} onChange={e => setPass(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && (modo === "login" ? handleLogin() : handleRegistro())} /><button onClick={() => setVerPass(!verPass)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:"white", cursor:"pointer", fontSize:16 }}>{verPass ? "🙈" : "👁"}</button>
+            onKeyDown={e => e.key === "Enter" && (modo === "login" ? handleLogin() : handleRegistro())} /> <span onClick={() => setVerPass(!verPass)} style={{ cursor:"pointer", marginLeft:8, fontSize:18 }}>{verPass ? "🙈" : "👁"}</span><button onClick={() => setVerPass(!verPass)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:"white", cursor:"pointer", fontSize:16 }}>{verPass ? "🙈" : "👁"}</button>
         {modo === "login" && <div style={{ textAlign: "right", marginTop: 8 }}><button onClick={async () => { if (!email) { alert("Ingresa tu email primero."); return; } await supabase.auth.resetPasswordForEmail(email, { redirectTo: "https://kenarau-app.vercel.app" }); alert("✅ Email enviado. Revisa tu correo."); }} style={{ background: "none", border: "none", color: C.purpleLight, fontSize: 12, cursor: "pointer" }}>¿Olvidaste tu contraseña?</button></div>}
         </div>
 
@@ -579,6 +579,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
