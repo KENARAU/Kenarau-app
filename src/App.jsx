@@ -161,6 +161,7 @@ function Login({ onLogin }) {
           <div style={{ fontSize: 12, color: C.textSecondary, marginBottom: 8 }}>Contraseña</div>
           <input style={s.input} type="password" placeholder="········" value={pass} onChange={e => setPass(e.target.value)}
             onKeyDown={e => e.key === "Enter" && (modo === "login" ? handleLogin() : handleRegistro())} />
+        {modo === "login" && <div style={{ textAlign: "right", marginTop: 8 }}><button onClick={async () => { if (!email) { alert("Ingresa tu email primero."); return; } await supabase.auth.resetPasswordForEmail(email, { redirectTo: "https://kenarau-app.vercel.app" }); alert("✅ Email enviado. Revisa tu correo."); }} style={{ background: "none", border: "none", color: C.purpleLight, fontSize: 12, cursor: "pointer" }}>¿Olvidaste tu contraseña?</button></div>}
         </div>
 
         {error && <div style={{ color: "#ff6b6b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
@@ -576,3 +577,4 @@ export default function App() {
     </div>
   );
 }
+
