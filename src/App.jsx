@@ -181,6 +181,8 @@ function Login({ onLogin }) {
   );
 }
 
+function CrearModelo({ setScreen }) { const [descripcion, setDescripcion] = React.useState(""); const [generando, setGenerando] = React.useState(false); const [imagenUrl, setImagenUrl] = React.useState(""); const [error, setError] = React.useState(""); const handleGenerar = async () => { if (!descripcion) { setError("Describe tu modelo primero."); return; } setGenerando(true); setError(""); try { const prompt = "Professional photorealistic portrait of a " + descripcion + ", high quality, 8k, professional lighting, elegant"; const url = await generarModeloConFlux(prompt); setImagenUrl(url); } catch(e) { setError("Error al generar la imagen. Intenta de nuevo."); } setGenerando(false); }; return (<div style={{ maxWidth: 600, margin: "0 auto" }}><div style={{ marginBottom: 24 }}><div style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Crear tu Modelo Virtual</div><div style={{ fontSize: 13, color: C.textSecondary }}>Describe cómo quieres que sea tu modelo exclusiva</div></div><div style={{ ...s.card, marginBottom: 16 }}><div style={{ fontSize: 12, color: C.textSecondary, marginBottom: 8 }}>Describe tu modelo (edad, estilo, apariencia)</div><textarea style={{ ...s.input, minHeight: 100, resize: "vertical" }} placeholder="Ejemplo: mujer joven 25 años, cabello negro, estilo profesional elegante" value={descripcion} onChange={e => setDescripcion(e.target.value)} /></div>{error && <div style={{ color: "#ff6b6b", fontSize: 13, marginBottom: 16 }}>{error}</div>}<button style={{ ...s.btnPrimary, opacity: generando ? 0.7 : 1, marginBottom: 24 }} onClick={handleGenerar} disabled={generando}>{generando ? "Generando tu modelo..." : "✨ Generar Modelo"}</button>{imagenUrl && <div style={{ ...s.card, textAlign: "center" }}><div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: C.purpleLight }}>Tu modelo exclusiva</div><img src={imagenUrl} style={{ width: "100%", borderRadius: 12, maxHeight: 400, objectFit: "cover" }} /><button style={{ ...s.btnPrimary, marginTop: 16 }} onClick={() => setScreen("home")}>Usar esta modelo →</button></div>}</div>); }
+
 function Home({ setScreen, user, onLogout }) {
   return (
     <div>
@@ -582,6 +584,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
