@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from "react";
+﻿import { fal } from "@fal-ai/client";
+import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -51,6 +52,8 @@ const s = {
   badge: { background: "rgba(124,92,252,0.15)", border: "1px solid rgba(124,92,252,0.3)", color: C.purpleLight, borderRadius: 20, padding: "4px 12px", fontSize: 11, display: "inline-block" },
   grid2: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 },
 };
+
+async function generarModeloConFlux(descripcion) { fal.config({ credentials: import.meta.env.VITE_FAL_API_KEY }); const result = await fal.subscribe("fal-ai/flux-pro/v1.1", { input: { prompt: descripcion, image_size: "portrait_4_3", num_inference_steps: 28, guidance_scale: 3.5, num_images: 1, safety_tolerance: "2" }, logs: true }); return result.data.images[0].url; }
 
 async function generarGuionConClaude(descripcion, objetivo) {
   const objetivoTexto = {
@@ -579,6 +582,8 @@ export default function App() {
     </div>
   );
 }
+
+
 
 
 
