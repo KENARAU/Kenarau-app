@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -40,17 +40,17 @@ function Login({ onLogin }) {
   const [mensaje, setMensaje] = useState("");
 
   const handleLogin = async () => {
-    if (!email || !pass) { setError("Ingresa email y contraseña."); return; }
+    if (!email || !pass) { setError("Ingresa email y contraseÃ±a."); return; }
     setCargando(true); setError("");
     const { error: err } = await supabase.auth.signInWithPassword({ email, password: pass });
-    if (err) setError("Email o contraseña incorrectos.");
+    if (err) setError("Email o contraseÃ±a incorrectos.");
     setCargando(false);
   };
 
   const handleRegistro = async () => {
-    if (!email || !pass) { setError("Ingresa email y contraseña."); return; }
-    if (pass !== pass2) { setError("Las contraseñas no coinciden."); return; }
-    if (pass.length < 6) { setError("La contraseña debe tener al menos 6 caracteres."); return; }
+    if (!email || !pass) { setError("Ingresa email y contraseÃ±a."); return; }
+    if (pass !== pass2) { setError("Las contraseÃ±as no coinciden."); return; }
+    if (pass.length < 6) { setError("La contraseÃ±a debe tener al menos 6 caracteres."); return; }
     setCargando(true); setError("");
     const { error: err } = await supabase.auth.signUp({ email, password: pass });
     if (err) setError(err.message);
@@ -63,7 +63,7 @@ function Login({ onLogin }) {
       <div style={{ width:380, padding:32 }}>
         <div style={{ textAlign:"center", marginBottom:32 }}>
           <div style={{ fontSize:38, fontWeight:800, color:C.purpleLight, marginBottom:6 }}>KENARAU</div>
-          <div style={{ fontSize:13, color:C.textSecondary }}>Videos con IA. Sin cámara.</div>
+          <div style={{ fontSize:13, color:C.textSecondary }}>Videos con IA. Sin cÃ¡mara.</div>
         </div>
         <div style={{ display:"flex", gap:8, marginBottom:24, background:"rgba(255,255,255,0.04)", borderRadius:10, padding:4 }}>
           {["login","registro"].map(m => (
@@ -75,20 +75,20 @@ function Login({ onLogin }) {
           <input style={s.input} type="email" placeholder="tu@email.com" value={email} onChange={e => setEmail(e.target.value)} />
         </div>
         <div style={{ marginBottom:8 }}>
-          <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>Contraseña</div>
+          <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>ContraseÃ±a</div>
           <div style={{ position:"relative" }}>
-            <input style={{ ...s.input, paddingRight:44 }} type={verPass ? "text" : "password"} placeholder="········" value={pass} onChange={e => setPass(e.target.value)} onKeyDown={e => e.key==="Enter" && (modo==="login" ? handleLogin() : handleRegistro())} />
-            <button onClick={() => setVerPass(!verPass)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:C.textSecondary, cursor:"pointer", fontSize:17 }}>{verPass ? "🙈" : "👁"}</button>
+            <input style={{ ...s.input, paddingRight:44 }} type={verPass ? "text" : "password"} placeholder="Â·Â·Â·Â·Â·Â·Â·Â·" value={pass} onChange={e => setPass(e.target.value)} onKeyDown={e => e.key==="Enter" && (modo==="login" ? handleLogin() : handleRegistro())} />
+            <button onClick={() => setVerPass(!verPass)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:C.textSecondary, cursor:"pointer", fontSize:17 }}>{verPass ? "ðŸ™ˆ" : "ðŸ‘"}</button>
           </div>
         </div>
-        {modo==="login" && <div style={{ textAlign:"right", marginBottom:16 }}><button onClick={async () => { if (!email) { alert("Ingresa tu email primero."); return; } await supabase.auth.resetPasswordForEmail(email, { redirectTo:"https://kenarau-app.vercel.app" }); alert("Email enviado. Revisa tu correo."); }} style={{ background:"none", border:"none", color:C.purpleLight, fontSize:12, cursor:"pointer" }}>¿Olvidaste tu contraseña?</button></div>}
+        {modo==="login" && <div style={{ textAlign:"right", marginBottom:16 }}><button onClick={async () => { if (!email) { alert("Ingresa tu email primero."); return; } await supabase.auth.resetPasswordForEmail(email, { redirectTo:"https://kenarau-app.vercel.app" }); alert("Email enviado. Revisa tu correo."); }} style={{ background:"none", border:"none", color:C.purpleLight, fontSize:12, cursor:"pointer" }}>Â¿Olvidaste tu contraseÃ±a?</button></div>}
         {modo==="registro" && <div style={{ marginBottom:16 }}>
-          <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>Confirmar contraseña</div>
-          <input style={s.input} type={verPass ? "text" : "password"} placeholder="········" value={pass2} onChange={e => setPass2(e.target.value)} />
+          <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>Confirmar contraseÃ±a</div>
+          <input style={s.input} type={verPass ? "text" : "password"} placeholder="Â·Â·Â·Â·Â·Â·Â·Â·" value={pass2} onChange={e => setPass2(e.target.value)} />
         </div>}
         {error && <div style={{ color:"#ff6b6b", fontSize:13, marginBottom:16 }}>{error}</div>}
         {mensaje && <div style={{ color:"#6bffb8", fontSize:13, marginBottom:16 }}>{mensaje}</div>}
-        <button style={{ ...s.btnPrimary, opacity:cargando ? 0.7 : 1 }} onClick={modo==="login" ? handleLogin : handleRegistro} disabled={cargando}>{cargando ? "Cargando..." : modo==="login" ? "Ingresar →" : "Crear cuenta →"}</button>
+        <button style={{ ...s.btnPrimary, opacity:cargando ? 0.7 : 1 }} onClick={modo==="login" ? handleLogin : handleRegistro} disabled={cargando}>{cargando ? "Cargando..." : modo==="login" ? "Ingresar â†’" : "Crear cuenta â†’"}</button>
       </div>
     </div>
   );
@@ -100,13 +100,13 @@ function Step1({ onNext }) {
     <div style={{ maxWidth:600, margin:"0 auto" }}>
       <div style={{ marginBottom:32, textAlign:"center" }}>
         <div style={{ fontSize:11, color:C.purpleLight, letterSpacing:3, marginBottom:12 }}>PASO 1 DE 3</div>
-        <div style={{ fontSize:26, fontWeight:700, marginBottom:8 }}>¿Qué quieres promocionar?</div>
-        <div style={{ fontSize:14, color:C.textSecondary }}>Descríbelo en tus propias palabras. No necesitas saber de tecnología.</div>
+        <div style={{ fontSize:26, fontWeight:700, marginBottom:8 }}>Â¿QuÃ© quieres promocionar?</div>
+        <div style={{ fontSize:14, color:C.textSecondary }}>DescrÃ­belo en tus propias palabras. No necesitas saber de tecnologÃ­a.</div>
       </div>
       <div style={{ ...s.card, marginBottom:16 }}>
-        <textarea style={{ ...s.input, minHeight:140, resize:"vertical", lineHeight:1.6 }} placeholder="Ejemplo: Tengo una empresa de instalación de geomembranas HDPE para minería. Quiero mostrar cómo instalamos las membranas en terreno." value={descripcion} onChange={e => setDescripcion(e.target.value)} />
+        <textarea style={{ ...s.input, minHeight:140, resize:"vertical", lineHeight:1.6 }} placeholder="Ejemplo: Tengo una empresa de instalaciÃ³n de geomembranas HDPE para minerÃ­a. Quiero mostrar cÃ³mo instalamos las membranas en terreno." value={descripcion} onChange={e => setDescripcion(e.target.value)} />
       </div>
-      <button style={{ ...s.btnPrimary, opacity:descripcion.length < 10 ? 0.5 : 1 }} onClick={() => descripcion.length >= 10 && onNext(descripcion)} disabled={descripcion.length < 10}>Continuar →</button>
+      <button style={{ ...s.btnPrimary, opacity:descripcion.length < 10 ? 0.5 : 1 }} onClick={() => descripcion.length >= 10 && onNext(descripcion)} disabled={descripcion.length < 10}>Continuar â†’</button>
     </div>
   );
 }
@@ -119,10 +119,10 @@ function Step2({ onNext }) {
       <div style={{ marginBottom:32, textAlign:"center" }}>
         <div style={{ fontSize:11, color:C.purpleLight, letterSpacing:3, marginBottom:12 }}>PASO 2 DE 3</div>
         <div style={{ fontSize:26, fontWeight:700, marginBottom:8 }}>Elige tu modelo virtual</div>
-        <div style={{ fontSize:14, color:C.textSecondary }}>Esta modelo será exclusivamente tuya.</div>
+        <div style={{ fontSize:14, color:C.textSecondary }}>Esta modelo serÃ¡ exclusivamente tuya.</div>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:24 }}>
-        {[{ id:"mujer", label:"Modelo mujer", desc:"Voz y figura femenina", icon:"👩" }, { id:"hombre", label:"Modelo hombre", desc:"Voz y figura masculina", icon:"👨" }].map(op => (
+        {[{ id:"mujer", label:"Modelo mujer", desc:"Voz y figura femenina", icon:"ðŸ‘©" }, { id:"hombre", label:"Modelo hombre", desc:"Voz y figura masculina", icon:"ðŸ‘¨" }].map(op => (
           <button key={op.id} onClick={() => setTipo(op.id)} style={{ ...s.card, border:`1px solid ${tipo===op.id ? C.purple : C.border}`, cursor:"pointer", textAlign:"center", padding:20, background:tipo===op.id ? "rgba(124,92,252,0.12)" : C.card }}>
             <div style={{ fontSize:32, marginBottom:8 }}>{op.icon}</div>
             <div style={{ fontSize:14, fontWeight:600, color:"white" }}>{op.label}</div>
@@ -131,10 +131,10 @@ function Step2({ onNext }) {
         ))}
       </div>
       {tipo && <div style={{ ...s.card, marginBottom:24 }}>
-        <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>Describe cómo quieres que sea tu modelo (opcional)</div>
-        <input style={s.input} placeholder="Ejemplo: cabello oscuro, 30 años, estilo profesional" value={detalle} onChange={e => setDetalle(e.target.value)} />
+        <div style={{ fontSize:12, color:C.textSecondary, marginBottom:8 }}>Describe cÃ³mo quieres que sea tu modelo (opcional)</div>
+        <input style={s.input} placeholder="Ejemplo: cabello oscuro, 30 aÃ±os, estilo profesional" value={detalle} onChange={e => setDetalle(e.target.value)} />
       </div>}
-      <button style={{ ...s.btnPrimary, opacity:!tipo ? 0.5 : 1 }} onClick={() => tipo && onNext(tipo, detalle)} disabled={!tipo}>Generar mi modelo →</button>
+      <button style={{ ...s.btnPrimary, opacity:!tipo ? 0.5 : 1 }} onClick={() => tipo && onNext(tipo, detalle)} disabled={!tipo}>Generar mi modelo â†’</button>
     </div>
   );
 }
@@ -153,7 +153,7 @@ async function generarGuion(descripcion) {
   const response = await fetch("https://api.anthropic.com/v1/messages", {
     method:"POST",
     headers: { "Content-Type":"application/json", "x-api-key":import.meta.env.VITE_CLAUDE_API_KEY, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true" },
-    body: JSON.stringify({ model:"claude-haiku-4-5-20251001", max_tokens:400, messages:[{ role:"user", content:`Eres experto en marketing latino. Crea un guión de video de 45 segundos para: ${descripcion}. Estructura: HOOK impactante, PROBLEMA, SOLUCIÓN, CTA. Máximo 80 palabras. Tono cercano y latino. Solo el guión sin títulos.` }] })
+    body: JSON.stringify({ model:"claude-haiku-4-5-20251001", max_tokens:400, messages:[{ role:"user", content:`Eres experto en marketing latino. Crea un guiÃ³n de video de 45 segundos para: ${descripcion}. Estructura: HOOK impactante, PROBLEMA, SOLUCIÃ“N, CTA. MÃ¡ximo 80 palabras. Tono cercano y latino. Solo el guiÃ³n sin tÃ­tulos.` }] })
   });
   const data = await response.json();
   return data.content[0].text;
@@ -163,6 +163,7 @@ function Step3({ descripcion, tipo, detalle, onVolver }) {
   const [estado, setEstado] = useState("generando");
   const [imagenUrl, setImagenUrl] = useState("");
   const [guion, setGuion] = useState("");
+  const [guionEditado, setGuionEditado] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -173,7 +174,7 @@ function Step3({ descripcion, tipo, detalle, onVolver }) {
         const prompt = `Photorealistic portrait of a ${desc}, ${genero}, professional lighting, 8k quality, elegant background, marketing photo`;
         const [img, g] = await Promise.all([generarImagenFlux(prompt), generarGuion(descripcion)]);
         setImagenUrl(img);
-        setGuion(g);
+        setGuion(g); setGuionEditado(g);
         setEstado("listo");
       } catch(e) {
         setError("Error al generar. Intenta de nuevo.");
@@ -185,7 +186,7 @@ function Step3({ descripcion, tipo, detalle, onVolver }) {
 
   if (estado === "generando") return (
     <div style={{ maxWidth:600, margin:"0 auto", textAlign:"center", paddingTop:60 }}>
-      <div style={{ fontSize:48, marginBottom:24 }}>✨</div>
+      <div style={{ fontSize:48, marginBottom:24 }}>âœ¨</div>
       <div style={{ fontSize:22, fontWeight:700, marginBottom:12 }}>Creando tu modelo exclusiva...</div>
       <div style={{ fontSize:14, color:C.textSecondary, marginBottom:32 }}>Esto toma entre 30 y 60 segundos.</div>
     </div>
@@ -202,17 +203,17 @@ function Step3({ descripcion, tipo, detalle, onVolver }) {
     <div style={{ maxWidth:600, margin:"0 auto" }}>
       <div style={{ marginBottom:24, textAlign:"center" }}>
         <div style={{ fontSize:11, color:C.purpleLight, letterSpacing:3, marginBottom:12 }}>PASO 3 DE 3</div>
-        <div style={{ fontSize:26, fontWeight:700, marginBottom:8 }}>Tu modelo está lista 🎉</div>
-        <div style={{ fontSize:14, color:C.textSecondary }}>Esta modelo es única y exclusivamente tuya.</div>
+        <div style={{ fontSize:26, fontWeight:700, marginBottom:8 }}>Tu modelo estÃ¡ lista ðŸŽ‰</div>
+        <div style={{ fontSize:14, color:C.textSecondary }}>Esta modelo es Ãºnica y exclusivamente tuya.</div>
       </div>
       {imagenUrl && <div style={{ ...s.card, marginBottom:20, textAlign:"center" }}>
         <img src={imagenUrl} style={{ width:"100%", borderRadius:10, maxHeight:380, objectFit:"cover" }} />
       </div>}
       <div style={{ ...s.card, marginBottom:20 }}>
-        <div style={{ fontSize:12, color:C.purpleLight, marginBottom:8, fontWeight:600 }}>GUIÓN GENERADO</div>
-        <div style={{ fontSize:14, color:"white", lineHeight:1.7 }}>{guion}</div>
+        <div style={{ fontSize:12, color:C.purpleLight, marginBottom:8, fontWeight:600 }}>GUIÃ“N GENERADO</div>
+        <textarea style={{ ...s.input, minHeight:120, resize:"vertical", lineHeight:1.6, marginTop:8 }} value={guionEditado} onChange={e => setGuionEditado(e.target.value)} /><div style={{ fontSize:11, color:C.textSecondary, marginTop:6 }}>Puedes editar el guión antes de generar el video.</div>
       </div>
-      <button style={{ ...s.btnPrimary, marginBottom:12 }}>Generar video con esta modelo →</button>
+      <button style={{ ...s.btnPrimary, marginBottom:12 }}>Generar video con esta modelo â†’</button>
       <button style={{ ...s.btnSecondary, width:"100%" }} onClick={onVolver}>Volver al inicio</button>
     </div>
   );
@@ -239,10 +240,10 @@ function App() {
       <div style={{ width:200, background:"#0E0E18", borderRight:`1px solid ${C.border}`, padding:"20px 16px", display:"flex", flexDirection:"column" }}>
         <div style={{ fontSize:18, fontWeight:800, color:C.purpleLight, marginBottom:4 }}>KENARAU</div>
         <div style={{ fontSize:10, color:C.textSecondary, marginBottom:32 }}>v1.0</div>
-        <button onClick={() => setPaso(1)} style={{ ...s.btnSecondary, marginBottom:8, textAlign:"left", background:"rgba(124,92,252,0.15)", border:"1px solid rgba(124,92,252,0.3)", color:C.purpleLight }}>✨ Crear video</button>
+        <button onClick={() => setPaso(1)} style={{ ...s.btnSecondary, marginBottom:8, textAlign:"left", background:"rgba(124,92,252,0.15)", border:"1px solid rgba(124,92,252,0.3)", color:C.purpleLight }}>âœ¨ Crear video</button>
         <div style={{ marginTop:"auto" }}>
           <div style={{ fontSize:11, color:C.textSecondary, marginBottom:8 }}>{user.email}</div>
-          <button onClick={() => supabase.auth.signOut()} style={{ ...s.btnSecondary, width:"100%", fontSize:11 }}>Cerrar sesión</button>
+          <button onClick={() => supabase.auth.signOut()} style={{ ...s.btnSecondary, width:"100%", fontSize:11 }}>Cerrar sesiÃ³n</button>
         </div>
       </div>
       <div style={s.main}>
@@ -255,3 +256,6 @@ function App() {
 }
 
 export default App;
+
+
+
